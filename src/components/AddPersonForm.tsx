@@ -56,9 +56,11 @@ const AddPersonForm = ({ persons, setPersons }: AddPersonFormProps) => {
       Name: <input type="text" 
       value={newName} 
       onChange={e => setNewName(e.target.value)} />
+      <br />
       Number: <input type="text" 
       value={newNumber} 
       onChange={e => setNewNumber(e.target.value)} />
+      <br />
       <button type="submit">Submit</button>
     </form>
   )
