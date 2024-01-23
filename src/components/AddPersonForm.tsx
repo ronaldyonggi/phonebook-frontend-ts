@@ -11,7 +11,7 @@ const AddPersonForm = ({ persons, setPersons }: AddPersonFormProps) => {
   const [newNumber, setNewNumber] = useState('')
 
 
-  const addPerson = (event: SyntheticEvent) => {
+  const addPerson = (event: SyntheticEvent) : void => {
     event.preventDefault();
 
     const matchPerson = persons.find(person => person.name === newName)
