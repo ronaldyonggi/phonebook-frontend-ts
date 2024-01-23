@@ -1,5 +1,6 @@
 import { SyntheticEvent, useState } from "react"
 import { Person } from "../types/Person"
+import personService from '../services/persons'
 
 interface AddPersonFormProps {
     persons: Person[];
