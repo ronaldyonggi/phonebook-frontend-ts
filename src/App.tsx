@@ -18,6 +18,19 @@ const App = () => {
   ? persons.filter(person => person.name.toLowerCase().includes(filter) )
   : persons
 
+  const handleDelete = (id: string) => {
+    personService
+    .deletePerson(id)
+    .then(() => setPersons(persons.filter(person => person.id !== id))) 
+    .catch((error: unknown) => {
+      let errorMessage = 'Something went wrong!'
+      if (error instanceof Error) {
+        errorMessage += error.message
+      }
+      throw new Error(errorMessage)
+    })
+  }
+
   return (
     <div>
       <h2>Phonebook</h2>
@@ -26,7 +39,7 @@ const App = () => {
       <AddPersonForm persons={persons} setPersons={setPersons} />
       <h2>Numbers</h2>
       {personsToShow.map(person => (
-        <IndividualPerson key={person.id} person={person} />
+        <IndividualPerson key={person.id} person={person} handleDelete={() => handleDelete(person.id)} />
       ))}
     </div>
   )
