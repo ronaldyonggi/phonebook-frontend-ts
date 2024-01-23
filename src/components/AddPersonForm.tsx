@@ -37,10 +37,14 @@ const AddPersonForm = ({ persons, setPersons }: AddPersonFormProps) => {
       const newPerson = {
         name: newName,
         number: newNumber,
-        id: persons.length + 1
       }
 
-      setPersons(persons.concat(newPerson));
+      personService
+        .create(newPerson)
+        .then(res => {
+          setPersons(persons.concat(res.data))
+        })
+
       setNewName('')
       setNewNumber('')
     }
