@@ -14,5 +14,9 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
+    'intent': [
+      'error',
+      2
+    ]
   },
 }
