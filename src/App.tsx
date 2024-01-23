@@ -2,15 +2,15 @@ import { useEffect, useState } from "react"
 import AddPersonForm from "./components/AddPersonForm"
 import IndividualPerson from "./components/IndividualPerson"
 import { Person } from "./types/Person"
-import axios from "axios"
+import personService from './services/persons'
 
 const App = () => {
   const [persons, setPersons] = useState<Person[]>([])
   const [filter, setFilter] = useState('');
 
   useEffect(() => {
-    axios
-      .get('http://localhost:3001/persons')
+    personService
+      .getAll()
       .then(res => setPersons(res.data))
   }, [])
 
