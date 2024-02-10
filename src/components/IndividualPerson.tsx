@@ -1,25 +1,23 @@
-import { Person } from "../types/Person"
+import { Person } from '../types/person';
 
 interface IndividualPersonProps {
   person: Person;
-  handleDelete: () => void;
+  handleDelete: (id: string) => void
 }
 
 const IndividualPerson = ({ person, handleDelete }: IndividualPersonProps) => {
-
-  const handleDeleteButton = (): void => {
+  const handleDeleteClick = (): void => {
     if (window.confirm(`Delete ${person.name}?`)) {
-      handleDelete()
+      handleDelete(person.id);
     }
-  }
-
+  };
 
   return (
     <div>
       {person.name} {person.number}
-      <button onClick={handleDeleteButton}>delete</button>
+      <button onClick={handleDeleteClick}>delete</button>
     </div>
-  )
-}
+  );
+};
 
-export default IndividualPerson
+export default IndividualPerson;
