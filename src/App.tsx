@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import AddPersonForm from './components/AddPersonForm';
-import IndividualPerson from './components/IndividualPerson';
 import { Person } from './types/person';
 import personService from './services/persons';
+import AddPersonForm from './components/AddPersonForm/AddPersonForm';
+import IndividualPerson from './components/IndividualPerson/IndividualPerson';
 
 const App = () => {
   const [persons, setPersons] = useState<Person[]>([]);
