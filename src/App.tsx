@@ -48,24 +48,22 @@ const App = () => {
         setPersons(
           persons.map(p => p.id === matchPerson.id ? res.data : p)
         )
-        setIsError(false)
-        setNotificationMessage(`Modified ${newPerson.name}'s number`)
-        setTimeout(() => {
-          setNotificationMessage('')
-        }, 6000);
-        return true // to indicates that data is submitted, so reset the add new name and number field
-      } else {
-        return false
-      }
+        notificationHelper(
+          `Modified ${newPerson.name}'s number`,
+          false
+        )
+        notificationHelper(
+          error.response.data.error,
+          true
+        )
     } else {
-      const res = await personService.create(newPerson)
-      setPersons(persons.concat(res.data))
-      setIsError(false)
-      setNotificationMessage(`Added ${newPerson.name}`)
-      setTimeout(() => {
-        setNotificationMessage('')
-      }, 6000);
-      return true
+        notificationHelper(
+          `Added ${newPerson.name}`,
+          false
+        notificationHelper(
+          error.response.data.error,
+          true
+        )
     }
   };
 
