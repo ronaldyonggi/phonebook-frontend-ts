@@ -43,7 +43,7 @@ const App = () => {
         window.confirm(
           `${newPerson.name} is already added to phonebook. Replace old number with a new one?`
         )
-      ) {
+      ) try {
         const res = await personService.update(matchPerson.id, newPerson)
         setPersons(
           persons.map(p => p.id === matchPerson.id ? res.data : p)
@@ -52,14 +52,19 @@ const App = () => {
           `Modified ${newPerson.name}'s number`,
           false
         )
+      } catch (error) {
         notificationHelper(
           error.response.data.error,
           true
         )
     } else {
+      try {
+        const res = await personService.create(newPerson)
+        setPersons(persons.concat(res.data))
         notificationHelper(
           `Added ${newPerson.name}`,
           false
+      } catch(error) {
         notificationHelper(
           error.response.data.error,
           true
