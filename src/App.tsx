@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Person } from './types/person';
+import { NewPerson, Person } from './types/person';
 import personService from './services/persons';
 import AddPersonForm from './components/AddPersonForm/AddPersonForm';
 import IndividualPerson from './components/IndividualPerson/IndividualPerson';
