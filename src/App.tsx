@@ -52,11 +52,14 @@ const App = () => {
           `Modified ${newPerson.name}'s number`,
           false
         )
+        return true // to indicates that data is successfully submitted, so reset the add new name and number field
       } catch (error) {
         notificationHelper(
           error.response.data.error,
           true
         )
+      }
+      return false // indicates that data is not submitted, so don't reset new name and new number gfield
     } else {
       try {
         const res = await personService.create(newPerson)
@@ -64,11 +67,15 @@ const App = () => {
         notificationHelper(
           `Added ${newPerson.name}`,
           false
+        )
+        return true
       } catch(error) {
         notificationHelper(
           error.response.data.error,
           true
         )
+        return false
+      }
     }
   };
 
