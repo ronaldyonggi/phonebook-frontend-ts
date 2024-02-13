@@ -16,7 +16,7 @@ const App = () => {
     ? persons.filter((person) => person.name.toLowerCase().includes(filter))
     : persons;
 
-  const handleDelete = (id: string) => {
+  const deletePerson = (id: string) => {
     personService
       .deletePerson(id)
       .then(() => setPersons(persons.filter((person) => person.id !== id)))
@@ -45,7 +45,7 @@ const App = () => {
         <IndividualPerson
           key={person.id}
           person={person}
-          handleDelete={handleDelete}
+          deletePerson={deletePerson}
         />
       ))}
     </div>
