@@ -14,7 +14,7 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
-    'intent': [
+    'indent': [
       'error',
       2
     ]
