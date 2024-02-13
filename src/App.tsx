@@ -19,6 +19,21 @@ const App = () => {
     ? persons.filter((person) => person.name.toLowerCase().includes(filter))
     : persons;
 
+  
+  /**
+   * Helper function to set up notification
+   * 
+   * @param message The notification message
+   * @param isItError Boolean to indicates whether the notification is an error
+   */
+  const notificationHelper = (message: string, isItError : boolean)  => {
+    setIsError(isItError)
+    setNotificationMessage(message)
+    setTimeout(() => {
+      setNotificationMessage('')
+    }, 6000);
+  }
+
   const addPerson = async (newPerson: NewPerson) => {
     const matchPerson = persons.find((person) => person.name === newPerson.name);
     // If the name is already used
