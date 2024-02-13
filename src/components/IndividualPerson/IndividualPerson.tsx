@@ -6,7 +6,7 @@ interface IndividualPersonProps {
 }
 
 const IndividualPerson = ({ person, deletePerson }: IndividualPersonProps) => {
-  const handleDeleteClick = (): void => {
+  const handleDelete = (): void => {
     if (window.confirm(`Delete ${person.name}?`)) {
       deletePerson(person.id);
     }
@@ -15,7 +15,7 @@ const IndividualPerson = ({ person, deletePerson }: IndividualPersonProps) => {
   return (
     <div>
       {person.name} {person.number}
-      <button onClick={handleDeleteClick}>delete</button>
+      <button onClick={handleDelete}>delete</button>
     </div>
   );
 };
