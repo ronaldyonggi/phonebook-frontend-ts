@@ -1,61 +1,32 @@
 import { SyntheticEvent, useState } from 'react';
-import { Person } from '../../types/person';
-import personService from '../../services/persons'
+import { NewPerson } from '../../types/person';
 
 interface AddPersonFormProps {
-  persons: Person[];
-  setPersons: React.Dispatch<React.SetStateAction<Person[]>>;
+  addPerson: (newPerson: NewPerson) => Promise<boolean>;
 }
 
-const AddPersonForm = ({ persons, setPersons }: AddPersonFormProps) => {
+const AddPersonForm = ({ addPerson }: AddPersonFormProps) => {
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('');
 
-  const addPerson = (event: SyntheticEvent): void => {
+  const handleAdd = async (event: SyntheticEvent) => {
     event.preventDefault();
 
-    const matchPerson = persons.find((person) => person.name === newName);
-    // If the name is already used
-    if (matchPerson) {
-      // If user confirms wants to replace number
-      if (
-        window.confirm(
-          `${newName} is already added to phonebook. Replace old number with a new one?`
-        )
-      ) {
-        const newPerson = {
-          name: newName,
-          number: newNumber,
-        };
-
-        personService.update(matchPerson.id, newPerson).then((res) => {
-          setPersons(
-            persons.map((person) =>
-              person.id === matchPerson.id ? res.data : person
-            )
-          );
-        });
-
-        setNewName('');
-        setNewNumber('');
-      }
-    } else {
-      const newPerson = {
-        name: newName,
-        number: newNumber,
-      };
-
-      personService.create(newPerson).then((res) => {
-        setPersons(persons.concat(res.data));
-      });
-
-      setNewName('');
-      setNewNumber('');
+    const newPerson : NewPerson = {
+      name: newName,
+      number: newNumber
     }
+
+    const submitted = await addPerson(newPerson)
+    if (submitted) {
+      setNewName('')
+      setNewNumber('')
+    }
+
   };
 
   return (
-    <form onSubmit={addPerson}>
+    <form onSubmit={handleAdd}>
       Name:{' '}
       <input
         type="text"
