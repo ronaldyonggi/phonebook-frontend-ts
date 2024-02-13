@@ -2,13 +2,13 @@ import { Person } from "../../types/person";
 
 interface IndividualPersonProps {
   person: Person;
-  handleDelete: (id: string) => void
+  deletePerson: (id: string) => void
 }
 
-const IndividualPerson = ({ person, handleDelete }: IndividualPersonProps) => {
+const IndividualPerson = ({ person, deletePerson }: IndividualPersonProps) => {
   const handleDeleteClick = (): void => {
     if (window.confirm(`Delete ${person.name}?`)) {
-      handleDelete(person.id);
+      deletePerson(person.id);
     }
   };
 
