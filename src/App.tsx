@@ -3,10 +3,13 @@ import { NewPerson, Person } from './types/person';
 import personService from './services/persons';
 import AddPersonForm from './components/AddPersonForm/AddPersonForm';
 import IndividualPerson from './components/IndividualPerson/IndividualPerson';
+import Notification from './components/Notification/Notification';
 
 const App = () => {
   const [persons, setPersons] = useState<Person[]>([]);
   const [filter, setFilter] = useState('');
+  const [notificationMessage, setNotificationMessage] = useState('')
+  const [isError, setIsError] = useState(false)
 
   useEffect(() => {
     personService.getAll().then((res) => setPersons(res.data));
@@ -32,7 +35,8 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      filter shown as{' '}
+      <Notification isError={isError} message={notificationMessage} />
+      filter shown with{' '}
       <input
         type="text"
         value={filter}
