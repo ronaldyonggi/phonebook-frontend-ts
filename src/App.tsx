@@ -19,6 +19,41 @@ const App = () => {
     ? persons.filter((person) => person.name.toLowerCase().includes(filter))
     : persons;
 
+  const addPerson = async (newPerson: NewPerson) => {
+    const matchPerson = persons.find((person) => person.name === newPerson.name);
+    // If the name is already used
+    if (matchPerson) {
+      // If user confirms wants to replace number
+      if (
+        window.confirm(
+          `${newPerson.name} is already added to phonebook. Replace old number with a new one?`
+        )
+      ) {
+        const res = await personService.update(matchPerson.id, newPerson)
+        setPersons(
+          persons.map(p => p.id === matchPerson.id ? res.data : p)
+        )
+        setIsError(false)
+        setNotificationMessage(`Modified ${newPerson.name}'s number`)
+        setTimeout(() => {
+          setNotificationMessage('')
+        }, 6000);
+        return true // to indicates that data is submitted, so reset the add new name and number field
+      } else {
+        return false
+      }
+    } else {
+      const res = await personService.create(newPerson)
+      setPersons(persons.concat(res.data))
+      setIsError(false)
+      setNotificationMessage(`Added ${newPerson.name}`)
+      setTimeout(() => {
+        setNotificationMessage('')
+      }, 6000);
+      return true
+    }
+  };
+
   const deletePerson = (id: string) => {
     personService
       .deletePerson(id)
@@ -43,7 +78,7 @@ const App = () => {
         onChange={(e) => setFilter(e.target.value)}
       />
       <h2>Add New Person</h2>
-      <AddPersonForm persons={persons} setPersons={setPersons} />
+      <AddPersonForm addPerson={addPerson} />
       <h2>Numbers</h2>
       {personsToShow.map((person) => (
         <IndividualPerson
